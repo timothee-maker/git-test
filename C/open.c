@@ -11,7 +11,7 @@ int main()
     {
         ageAmis = malloc(nbAmis * sizeof(int));
 
-        for(i = 0; i < nbAmis; i ++)
+	for(i = 0; i < nbAmis; i ++)
         {
             printf("Quel est le nom de l'amis %d\n", i + 1);
             scanf("%d", &ageAmis[i]);
