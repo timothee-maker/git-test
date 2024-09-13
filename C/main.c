@@ -12,11 +12,11 @@ void initt(Coordonnees *point);
 int main()
 {
     Coordonnees point;
-    initt(&point);
-    point.x = 5;
-    point.y = 8;
-    printf("%d %d", point.x, point.y);
-    return 0;
+	initt(&point);
+	point.x = 5;
+	point.y = 8;
+	printf("%d %d", point.x, point.y);
+	return 0;
 
 }
 

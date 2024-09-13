@@ -2,23 +2,25 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int main(int ac, char **av)
+void    ft_putchar(int nbr)
 {
-    int i = 0;
-    int j;
-    if (ac == 3)
-    {
-        while(av[i])
-        {
-            j = 0;
-            while(av[i][j])
-            {
-                write(1, &av[i][j], 1);
-                j++;
-            }
-            i++;
-        }
-    }
+    write(1, &nbr, 1);
+}
+
+void    ft_punbr(int nbr)
+{
+    if (nbr > 9)
+        ft_punbr(nbr / 10);
+    ft_putchar(nbr % 10 + 48);
+}
+
+int main(int argc, char **argv)
+{
+    // int i = 42;
+    ft_punbr(i);
+    if (argc == 2)
+        ft_punbr(atoi(argv[1]));
+    write(1, "\n", 1);
     return 0;
 }
 
