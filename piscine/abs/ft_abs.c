@@ -1,6 +1,8 @@
 #include "ft_abs.h"
+#include <stdio.h>
 
 int main()
 {
-    printf("%s", ABS);
+    printf("%d", ABS(-145));
+    return 0;
 }
