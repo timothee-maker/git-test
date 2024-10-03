@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
+int	ft_strlcat(char *dest, char *src, unsigned int size)
 {
-	int	i;
+	unsigned int	i;
+
+	i = 0;
 	while (dest[i] && i < size)
 		i++;
-	return (i + ft_strlen(src));	
+	return (i + ft_strlen(src));
 }
 /*
 int	main()

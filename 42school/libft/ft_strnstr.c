@@ -2,24 +2,28 @@
 #include <string.h>
 #include <stdio.h>
 
-char	*ft_strnstr(char *haystack, char *needle, unsigned int size)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
+	char	*src;
 
+	src = (char *)haystack;
 	i = 0;
-	while (haystack[i] && i < size)
+	if (!needle)
+		return (src);
+	while (haystack[i] && i < len)
 	{
 		j = 0;
-		while (haystack[i + j] == needle[j] && (i + j) < size - 1)
+		while (haystack[i + j] == needle[j] && (i + j) < len - 1)
 		{
 			j++;
 			if (needle[j + 1] == '\0')
-				return (&haystack[i]);
+				return (&src[i]);
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
 /*
 int	main()
@@ -28,8 +32,8 @@ int	main()
 	char	str2[] = "suis une";
 	char	*result;
 	char	*ptr;
-	result = strnstr(str, str2, 10);
-	ptr = ft_strnstr(str, str2, 10);	
+	result = strnstr(str, str2, 11);
+	ptr = ft_strnstr(str, str2, 11);	
 	printf("%s\n", ptr);
 
 	if (result != NULL) {
@@ -39,5 +43,4 @@ int	main()
 	}
 
 	return 0;
-}
-*/
+}*/

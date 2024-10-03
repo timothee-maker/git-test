@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-char	ft_toupper(char c)
+char	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
 		c -= 32;

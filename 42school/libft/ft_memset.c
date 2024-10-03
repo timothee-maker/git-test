@@ -3,15 +3,14 @@
 void	*ft_memset(void *tab, int c, size_t count)
 {
 	size_t	i;
+
 	i = 0;
-	if (!tab)
-		return (NULL);
 	while (i < count)
 	{
-		*(unsigned char *)(tab + i) = (unsigned char)c;
+		*(char *)(tab + i) = (char)c;
 		i++;
 	}
-	return (tab);	
+	return (tab);
 }
 /*
 int	main()

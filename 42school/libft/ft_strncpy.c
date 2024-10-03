@@ -1,6 +1,6 @@
-#inlcude "libft.h"
+#include "libft.h"
 
-char	*ft_strncpy(char *dst, char *src, unsined int a)
+char	*ft_strncpy(char *dst, char *src, unsigned int a)
 {
 	int	i;
 

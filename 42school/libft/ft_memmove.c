@@ -2,7 +2,6 @@
 
 void	printall(char *str);
 
-
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t	i;
@@ -18,7 +17,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		return (dst);
 	}
 	else
-{
+	{
 		i = len - 1;
 		while (i >= 0)
 		{

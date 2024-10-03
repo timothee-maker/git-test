@@ -1,0 +1,8 @@
+Printf
+gerer les %
+%s
+%d
+%p
+%c
+%l
+
