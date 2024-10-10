@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char	*ft_strdup(char *s1)
+char	*ft_strdup(const char *s1)
 {
 	int		i;
 	char	*result;
@@ -16,3 +16,12 @@ char	*ft_strdup(char *s1)
 	}
 	return (result);
 }
+/*
+int	main()
+{
+	char str[] = "Je suis la";	
+	char *ptr;
+	ptr = ft_strdup(str);
+	printf("%s", ptr);
+	return (0);
+}*/

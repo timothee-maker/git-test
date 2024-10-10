@@ -38,8 +38,8 @@ int	main()
 	//printf("%s\n", );
 	//ft_memmove(tab, str, sizeof(char) * 9);
 	//ft_memcpy(tab, str, sizeof(char) * 7);
-	ft_memmove(tab, str2, sizeof(char) * 3);
-	memmove(tab2, str, sizeof(char) * 3);
+	ft_memmove(tab2, str2, sizeof(char) * 3);
+	memmove(tab, str, sizeof(char) * 3);
 	printall(tab);
 	printall(tab2);
 	return (0);
@@ -54,6 +54,4 @@ void	printall(char *str)
 		i++;
 	}
 	printf("\n");
-
-}
-*/
+}*/

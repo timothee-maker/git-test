@@ -1,8 +1,6 @@
-Printf
-gerer les %
-%s
-%d
-%p
-%c
-%l
+				Printf
+gerer les %s, %p, %c, %u
+
+gerer les whites space : \n, \t, ' ', \n, \v, \f, \r
+
 

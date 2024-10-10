@@ -26,7 +26,7 @@ int	ft_atoi(char *str)
 /*
 int	main()
 {
-	char *str = "\n\t123";
+	char *str = "\n\t	-123";
 	printf("%d", ft_atoi(str));
 	return (0);
 }*/
