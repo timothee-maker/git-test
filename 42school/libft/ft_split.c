@@ -2,47 +2,55 @@
 
 int	count_world(char const *str, char sep);
 int	is_sep(char c, char sep);
+int	size_tab(const char *str, char sep);
 
 char	**ft_split(char const *s, char c)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		l;
+	int	i;
+	int	j;
+	int	k;
+	int	p;
 	char	**result;
 
 	j = count_world(s, c);
+	result = (char **)malloc(sizeof(char *) * j + 1);
 	i = 0;
 	k = 0;
-	result = (char **)malloc(sizeof(char *) * j + 1);
-	if (!(result || s))
-		return (NULL);
 	while (s[i])
 	{
 		if (!is_sep(s[i], c))
 		{
-			l = 0;
-			result[k] = (char *)malloc(sizeof(char) * 100);
+			p = 0;
+			j = size_tab(&s[i], c);
+			result[k] = (char *)malloc(sizeof(char) * j);
 			while (!is_sep(s[i], c) && s[i])
 			{
-				result[k][l] = s[i];
-				l++;
+				result[k][p] = s[i];
+				p++;
 				i++;
 			}
-			result[k][l] = '\0';
+			result[k][j] = '\0';
 			k++;
 		}
-		else
-			i++;
+		i++;
 	}
 	result[k] = 0;
 	return (result);
 }
-/*
-char	*full_tab(char const *str, char sep)
+
+int	size_tab(char const *str, char sep)
 {
-	
-}*/
+	int	i;
+
+	i = 0;
+	while (!is_sep(str[i], sep))
+	{
+		i++;
+		if (is_sep(str[i], sep))
+			return (i);
+	}
+	return (i);
+}
 
 int	is_sep(char c, char sep)
 {

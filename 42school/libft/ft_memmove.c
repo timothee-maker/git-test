@@ -5,27 +5,18 @@ void	printall(char *str);
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t	i;
+	char	*src1;
+	char	*dst1;
 
-	if (dst < src)
+	src1 = (char *)(src);
+	dst1 = (char *)(dst);
+	i = 0;
+	while (i < len)
 	{
-		i = 0;
-		while (i < len)
-		{
-			*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
-			i++;
-		}
-		return (dst);
+		dst1[i] = src1[i];
+		i++;
 	}
-	else
-	{
-		i = len - 1;
-		while (i >= 0)
-		{
-			*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
-			i--;
-		}
-		return (dst);
-	}
+	return ((void *)dst1);
 }
 /*
 int	main()
@@ -38,8 +29,8 @@ int	main()
 	//printf("%s\n", );
 	//ft_memmove(tab, str, sizeof(char) * 9);
 	//ft_memcpy(tab, str, sizeof(char) * 7);
-	ft_memmove(tab2, str2, sizeof(char) * 3);
-	memmove(tab, str, sizeof(char) * 3);
+	ft_memmove(tab, str2, sizeof(char) * 5);
+	memmove(tab2, str, sizeof(char) * 5);
 	printall(tab);
 	printall(tab2);
 	return (0);

@@ -17,10 +17,10 @@ void	ft_putnbrbase_fd(int nb, char *base, int fd)
 	nb = base[nb % k];
 	write(fd, &nb, 1);
 }
-
+/*
 int	main()
 {
-	ft_putnbrbase_fd(26, "0123456789abcdef", 1);
+	ft_putnbrbase_fd(42, "0123456789abcdef", 2);
 	printf("\n");
 	return (0);
-}
+}*/

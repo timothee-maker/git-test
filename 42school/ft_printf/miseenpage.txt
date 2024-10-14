@@ -1,6 +1,0 @@
-				Printf
-gerer les %s, %p, %c, %u
-
-gerer les whites space : \n, \t, ' ', \n, \v, \f, \r
-
-

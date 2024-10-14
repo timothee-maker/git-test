@@ -4,10 +4,11 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
-	ptr = (void *)malloc(count * size);
+	ptr = (void *)malloc(count * size + 1);
 	if (!ptr)
 		return (NULL);
-	return (ft_memset(ptr, 0, size));
+	ft_memset(ptr, 0, sizeof(char) * count);
+	return (ptr);
 }
 /*
 int    main()

@@ -48,7 +48,6 @@ int	ft_printf(char *str, ...)
 
 int	print_numbers(char *str, va_list args)
 {
-	int	p;
 	int	i;
 	int	buffer;
 
@@ -74,7 +73,6 @@ int	print_numbers(char *str, va_list args)
 
 int	print_char(char *str, va_list args)
 {
-	int	p;
 	int	i;
 	char	c;
 	char	*string;
@@ -168,7 +166,7 @@ int	check_conversion(char *str)
 	else
 		return (0);
 }
-
+/*
 int	main()
 {
 	int	p = 23;
@@ -181,8 +179,4 @@ int	main()
 	ft_printf("%%%p\n%x%x%s%c",k , 29, 26, "caca", 'p');
 	printf("\n");
 	return (0);
-}
-
-
-
-
+}*/

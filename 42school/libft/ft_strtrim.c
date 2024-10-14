@@ -57,8 +57,8 @@ int	is_sep(char c, char const *set)
 /*
 int	main()
 {
-	char *str = "  utablew";
-	char *set = " u";
+	char *str = "";
+	char *set = "";
 	char *ptr;
 	ptr = ft_strtrim(str, set);
 	printf("%s\n", ptr);

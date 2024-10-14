@@ -6,8 +6,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*ptr;
 
 	i = 0;
-	if (!s)
-		return (NULL);
 	ptr = (char *)malloc(sizeof(char) * len + 1);
 	if (!ptr)
 		return (NULL);
@@ -17,14 +15,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 		start++;
 	}
+	ptr[i] = '\0';
 	return (ptr);
 }
 /*
 int	main()
 {
-	char *str = "J esuis une fougere";
+	char *str = "Je suis une fougere";
 	char *ptr;
-	ptr = ft_strsub(str, 9, 11);
-	printf("%s\n", ptr);
+	char	*ptr2;
+	ptr = ft_substr(str, 17, 10);
+	printf("%s", ptr);
 	return (0);
 }*/
