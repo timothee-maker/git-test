@@ -4,13 +4,13 @@ int	check_conversion(char *str);
 int	check_whitespace(char str);
 void	white_space(char str);
 int	print_numbers(char *str, va_list args);
-int	print_char(char *str, va_list args);
+void	print_char(char *str, va_list args);
 
 int	ft_printf(char *str, ...)
 {
-	int	ptr;
+	int		ptr;
+	int		i;
 	va_list	args;
-	int	i;
 
 	i = 0;
 	va_start(args, str);
@@ -19,7 +19,7 @@ int	ft_printf(char *str, ...)
 		if (str[i] == '%' & str[i + 1] == '%')
 		{
 			write(1, "%", 1);
-			i +=2;
+			i += 2;
 		}
 		else if (check_conversion(&str[i]))
 		{
@@ -40,7 +40,6 @@ int	ft_printf(char *str, ...)
 		}
 		else
 			i++;
-
 	}
 	va_end(args);
 	return (0);
@@ -48,11 +47,12 @@ int	ft_printf(char *str, ...)
 
 int	print_numbers(char *str, va_list args)
 {
-	int	i;
-	int	buffer;
+	uintptr_t	ptr;
+	int		i;
+	int		buffer;
 
 	i = 0;
-	buffer = va_arg(args, uintptr_t);
+	buffer = va_arg(args, int);
 	if (str[i] == '%' && (str[i + 1] == 'd' || str[i + 1] == 'i'))
 		ft_putnbr_fd(buffer, 1);
 	else if (str[i] == '%' && (str[i + 1] == 'x'))
@@ -62,7 +62,8 @@ int	print_numbers(char *str, va_list args)
 	else if (str[i] == '%' && (str[i + 1] == 'p'))
 	{
 		write(1, "0x1", 3);
-		ft_putnbrbase_fd(buffer, "0123456789abcdef", 1);
+		ptr = (uintptr_t)buffer;
+		ft_putnbrbase_fd(ptr, "0123456789abcdef", 1);
 	}
 	else if (str[i] == '%' && str[i + 1] == 'u')
 		ft_putunsnb_fd(buffer, 1);
@@ -71,11 +72,11 @@ int	print_numbers(char *str, va_list args)
 	return (1);
 }
 
-int	print_char(char *str, va_list args)
+void	print_char(char *str, va_list args)
 {
 	int	i;
-	char	c;
-	char	*string;
+	char		c;
+	char		*string;
 
 	i = 0;
 	if (str[i] == '%' && str[i + 1] == 'c')
@@ -85,12 +86,9 @@ int	print_char(char *str, va_list args)
 	}
 	else if (str[i] == '%' && str[i + 1] == 's')
 	{
-		string = va_arg(args, char*);
+		string = va_arg(args, char *);
 		ft_putstr_fd(string, 1);
 	}
-	else 
-	return (0);
-	return (1);
 }
 
 void	white_space(char str)
@@ -146,7 +144,6 @@ int	check_conversion(char *str)
 	int	i;
 
 	i = 0;
-
 	if (str[i] == '%' && str[i + 1] == 'd')
 		return (1);
 	else if (str[i] == '%' && str[i + 1] == 'x')

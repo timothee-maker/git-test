@@ -10,7 +10,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*ptr;
 
 	i = 0;
-	ptr = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!ptr)
 		return (NULL);
 	while (s1[i] && is_sep(s1[i], set))
@@ -28,7 +28,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 			{
 				if (is_sep(s1[i + k], set) && s1[i + k + 1] == '\0')
 				{
-					ptr[i + 1] = '\0';
+					ptr[j] = '\0';
 					return (ptr);
 				}
 				if (!is_sep(s1[i + k], set))
@@ -37,7 +37,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 			}
 		}
 	}
-	ptr[i + 1] = '\0';
+	ptr[j] = '\0';
 	return (ptr);
 }
 
@@ -57,8 +57,8 @@ int	is_sep(char c, char const *set)
 /*
 int	main()
 {
-	char *str = "";
-	char *set = "";
+	char *str = "     apagnain sur le    marche    ";
+	char *set = " ";
 	char *ptr;
 	ptr = ft_strtrim(str, set);
 	printf("%s\n", ptr);

@@ -19,7 +19,7 @@ int	check_conversion(char *str);
 int	check_whitespace(char str);
 void	white_space(char str);
 int	print_numbers(char *str, va_list args);
-int	print_char(char *str, va_list args);
+void	print_char(char *str, va_list args);
 int	ft_printf(char *str, ...);
 
 
