@@ -44,16 +44,27 @@ int	ft_printf(char *str, ...)
 	va_end(args);
 	return (0);
 }
+/*
+if (str[i] == 'c')
+	hadnle_c
 
+if (str[i] == 'x')
+	handle_x(va_arg(args, unsigned int))
+*/
+
+// faire une fonction pour tout les types de variables
 int	print_numbers(char *str, va_list args)
 {
-	uintptr_t	ptr;
+	unsigned long long	ptr;
 	int		i;
-	int		buffer;
+	long		buffer;
 
 	i = 0;
 	buffer = va_arg(args, int);
 	if (str[i] == '%' && (str[i + 1] == 'd' || str[i + 1] == 'i'))
+		ft_putnbr_fd(buffer, 1);
+	else if (str[i] == '%' && (str[i + 1] == 'x'))
+		ft_putnbrbase_fd(buffer, "0123456789abcdef", 1);if (str[i] == '%' && (str[i + 1] == 'd' || str[i + 1] == 'i'))
 		ft_putnbr_fd(buffer, 1);
 	else if (str[i] == '%' && (str[i + 1] == 'x'))
 		ft_putnbrbase_fd(buffer, "0123456789abcdef", 1);
@@ -61,9 +72,14 @@ int	print_numbers(char *str, va_list args)
 		ft_putnbrbase_fd(buffer, "0123456789ABCDEF", 1);
 	else if (str[i] == '%' && (str[i + 1] == 'p'))
 	{
-		write(1, "0x1", 3);
-		ptr = (uintptr_t)buffer;
+	else if (str[i] == '%' && str[i + 1] == 'X')
+		ft_putnbrbase_fd(buffer, "0123456789ABCDEF", 1);
+	else if (str[i] == '%' && (str[i + 1] == 'p'))
+	{
+		write(1, "0x", 2);
+		ptr = (unsigned long long)buffer;
 		ft_putnbrbase_fd(ptr, "0123456789abcdef", 1);
+		// printf("\n%llu\n", ptr);
 	}
 	else if (str[i] == '%' && str[i + 1] == 'u')
 		ft_putunsnb_fd(buffer, 1);

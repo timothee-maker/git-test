@@ -10,7 +10,7 @@ void	ft_putnbrbase_fd(int nb, char *base, int fd)
 		write(1, "-", 1);
 		nb *= -1;
 	}
-	if (nb > 9)
+	if (nb > 15)
 	{
 		ft_putnbrbase_fd(nb / k, base, fd);
 	}

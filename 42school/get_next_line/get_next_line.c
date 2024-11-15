@@ -1,57 +1,111 @@
 #include "get_next_line.h"
 
-int	get_length_line(int fd)
-{
-	char	*str;
-	char	*result;
-	int	i;
-	int	length;
+char	*keep_line(char *stash);
+int		check_stash(char *stash);
+char	*clean_stash(char *stash);
 
-	length = 0;
-	i = 0;
-	str = malloc(sizeof(char) * 1);
-	while (str[0] != '\n')
+
+//	retourne la ligne avec le \n
+char	*get_next_line(int fd)
+{
+	int			nb_char;
+	static char *stash = NULL;
+	char	buff[BUFFER_SIZE + 1];
+	char	*line;
+
+	//printf("%s", stash);
+	if (stash == NULL)
+		stash = (char *)malloc(sizeof(char) * (100));
+	if (!stash)	
+		return (NULL);
+	//printf("%d%s\n", tour, stash);
+	nb_char = -1;
+	while (nb_char != 0)
 	{
-		read(fd, str, 1);
-		i++;
+		nb_char = read(fd, buff, BUFFER_SIZE);
+		strcat(stash, buff);
+		// printf("%s\n", stash);
+		if (check_stash(stash))
+		{
+			line = keep_line(stash);
+			stash = clean_stash(stash);
+			// printf("%s\n", stash);
+			//printf("%s\n", line);
+			if (nb_char == 0)
+				free(stash);
+			return (line);
+		}
 	}
-	//result[i] = '\0';
-	//printf("%s", result);	
-	return (str);
+	free(stash);
+	return (line);
+}
+//	retourne la reserve avec dans l'ancienne ligne
+char	*clean_stash(char *stash)
+{
+	int	i;
+
+	// printf("1[%s]\n", stash);
+	i = 0;
+	while (stash[i] != '\n')
+		i++;
+	// printf("2[%s]\n", &stash[i + 1]);
+	return (&stash[i + 1]);
+}
+//	prend la reserve et retourne la premiere ligne avec le \n
+char	*keep_line(char *stash)
+{
+	int		i;
+	int		j;
+	char	*line;
+
+	i = 0;
+	j = 0;
+	while (stash[i] != '\n')
+		i++;
+	// line = (char *)malloc(sizeof(char) * (i + 2));
+	line = (char *)calloc(sizeof(char), i + 2);
+	if (!line)
+		return (NULL);
+	while (i + 1 > j)
+	{
+		line[j] = stash[j];
+		j++;
+	}
+	// printf("%d\n", j);
+	line[j + 1] = '\0';
+	return (line);
 }
 
-char *get_next_line(int fd)
+int	check_stash(char *stash)
 {
-	char	*str;
-	char	*result;
 	int	i;
-	int	length;
 
-	length = 0;
 	i = 0;
-	str = malloc(sizeof(char) * 1);
-	while (str[0] != '\n')
+	while (stash[i])
 	{
-		read(fd, str, 1);
-		printf("%s", str);
+		if (stash[i] == '\n')
+			return (1);
 		i++;
 	}
-	//result[i] = '\0';
-	//printf("%s", result);	
-	return (str);
-}
-
-int	main()
-{
-	int	fd = open("newtex!t", O_RDWR);
-	if (fd == -1)
-		return (0);
-	≠char *buffer;
-	//write (fd, "le caca est cuit", 16);
-	buffer = get_next_line(fd);
-	printf("%s", buffer);
-	close(fd);
-	free (buffer);
 	return (0);
 }
 
+int	main(void)
+{
+	int		fd;
+	char	*buffer;
+
+	fd = open("text.txt", O_RDONLY);
+	if (fd == -1)
+		return (0);
+	for (int i = 0; i < 4; i++)
+	{
+		buffer = get_next_line(fd);
+		printf("%s", buffer);
+		free(buffer);
+	}
+	//printf("%s", buffer);
+	
+	close(fd);
+	return (0);
+}

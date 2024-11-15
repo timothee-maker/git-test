@@ -1,4 +1,4 @@
-#include "ft.h"
+//#include "ft.h"
 #include <stdio.h>
 
 int	main(void)
