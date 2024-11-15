@@ -26,10 +26,19 @@ void print_address_hex(void* p0) {
 
 int	main()
 {
-	char	*str = "Je suis ALAWARBAR";
+	char	*str = "Je suis";
 	print_address_hex(str);
 	printf("\n%p\n", str);
 	uintptr_t ptr = (uintptr_t)str;
 	ft_putnbrbase_fd(ptr, "0123456789abcdef", 1);
 	printf("\n");
+	char	c;
+	char	*str = "salut\n";
+	int	j;
+	int	arr[2];
+
+	c = 'a';
+	j = 1;
+	printf("c is: %p, str is: %p, j is: %p, arr is: %p", &c, str, &j, arr); 
+
 }

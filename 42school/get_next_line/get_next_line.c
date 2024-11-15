@@ -31,12 +31,10 @@ char	*get_next_line(int fd)
 			stash = clean_stash(stash);
 			// printf("%s\n", stash);
 			//printf("%s\n", line);
-			if (nb_char == 0)
-				free(stash);
-			return (line);
+			break ;
 		}
 	}
-	free(stash);
+		free(stash);
 	return (line);
 }
 //	retourne la reserve avec dans l'ancienne ligne
@@ -44,13 +42,26 @@ char	*clean_stash(char *stash)
 {
 	int	i;
 
-	// printf("1[%s]\n", stash);
 	i = 0;
 	while (stash[i] != '\n')
 		i++;
 	// printf("2[%s]\n", &stash[i + 1]);
 	return (&stash[i + 1]);
 }
+// char	*clean_stash(char *stash)
+// {
+// 	int	i;
+// 	char	*tmp;
+
+// 	i = 0;
+// 	while (stash[i] != '\n')
+// 		i++;
+// 	// printf("2[%s]\n", &stash[i + 1]);
+// 	tmp = calloc(sizeof(char), strlen(stash));
+// 	strcpy(tmp, stash + i);
+// 	free(stash);
+// 	return (tmp);
+// }
 //	prend la reserve et retourne la premiere ligne avec le \n
 char	*keep_line(char *stash)
 {
@@ -72,7 +83,7 @@ char	*keep_line(char *stash)
 		j++;
 	}
 	// printf("%d\n", j);
-	line[j + 1] = '\0';
+	line[j] = '\0';
 	return (line);
 }
 

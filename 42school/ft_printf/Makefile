@@ -7,7 +7,7 @@ BUILD = build
 SRC = $(addprefix $(FOLDER)/, ft_isascii.c ft_putnbr_fd.c ft_putstr_fd.c ft_strlen.c \
       ft_printf.c ft_putnbrbase.c ft_putunsnb_fd.c ft_putchar_fd.c)
 INCLUDE =-I include
-LIB = libftprintf.a
+NAME = libftprintf.a
 OBJ = $(SRC:.c=.o)
 
 all : $(LIB) 
@@ -15,7 +15,7 @@ all : $(LIB)
 %.o : %.c
 	$(CC) $(INCLUDE) -c $< -o $@
 
-$(LIB) : $(OBJ)
+$(NAME) : $(OBJ)
 	ar -rcs $@ $^
 
 clean :

@@ -31,8 +31,6 @@ char	*get_next_line(int fd)
 			stash = clean_stash(stash);
 			// printf("%s\n", stash);
 			//printf("%s\n", line);
-			if (nb_char == 0)
-				free(stash);
 			return (line);
 		}
 	}
@@ -98,7 +96,7 @@ int	main(void)
 	fd = open("text.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		buffer = get_next_line(fd);
 		printf("%s", buffer);

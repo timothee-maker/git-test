@@ -70,8 +70,6 @@ int	print_numbers(char *str, va_list args)
 		ft_putnbrbase_fd(buffer, "0123456789abcdef", 1);
 	else if (str[i] == '%' && str[i + 1] == 'X')
 		ft_putnbrbase_fd(buffer, "0123456789ABCDEF", 1);
-	else if (str[i] == '%' && (str[i + 1] == 'p'))
-	{
 	else if (str[i] == '%' && str[i + 1] == 'X')
 		ft_putnbrbase_fd(buffer, "0123456789ABCDEF", 1);
 	else if (str[i] == '%' && (str[i + 1] == 'p'))
