@@ -1,70 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/18 18:41:48 by tnolent           #+#    #+#             */
+/*   Updated: 2024/11/18 18:49:53 by tnolent          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
+char	*read_file(int fd, char *buffer);
+char	*free_stash(char *stash, char *buffer);
+char	*ft_strdup(char *s1);
 char	*keep_line(char *stash);
-int		check_stash(char *stash);
 char	*clean_stash(char *stash);
-
-
+size_t	ft_strlen(char *str);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strchr(const char *s, int c);
 //	retourne la ligne avec le \n
+
 char	*get_next_line(int fd)
 {
-	int			nb_char;
-	static char *stash = NULL;
-	char	buff[BUFFER_SIZE + 1];
-	char	*line;
+	static char	*stash = NULL;
+	char		*line;
 
-	//printf("%s", stash);
-	line = NULL;
-	if (stash == NULL)
-		stash = (char *)malloc(sizeof(char) * (100));
-	if (!stash)	
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	//printf("%d%s\n", tour, stash);
-	nb_char = -1;
-	while (nb_char != 0)
-	{
-		nb_char = read(fd, buff, BUFFER_SIZE);
-		strcat(stash, buff);
-		// printf("%s\n", stash);
-		if (check_stash(stash))
-		{
-			line = keep_line(stash);
-			stash = clean_stash(stash);
-			// printf("%s\n", stash);
-			//printf("%s\n", line);
-			return (line);
-		}
-	}
-	free(stash);
+	stash = read_file(fd, stash);
+	line = keep_line(stash);
+	stash = clean_stash(stash);
 	return (line);
 }
-//	retourne la reserve avec dans l'ancienne ligne
-// char	*clean_stash(char *stash)
-// {
-// 	int	i;
+// nettoie la stash
 
-// 	i = 0;
-// 	while (stash[i] != '\n')
-// 		i++;
-// 	// printf("2[%s]\n", &stash[i + 1]);
-// 	return (&stash[i + 1]);
-// }
 char	*clean_stash(char *stash)
 {
-	int	i;
-	char	*tmp;
+	size_t	i;
+	int		j;
+	char	*last_stash;
 
 	i = 0;
-	while (stash[i] != '\n')
+	j = 0;
+	if (stash == NULL)
+		return (stash);
+	while (stash[i] && stash[i] != '\n')
 		i++;
-	// tmp = calloc(sizeof(char), strlen(stash));
-	// memcpy(tmp, stash + i, sizeof(char) * i);
-	// strcpy(tmp, &stash[i + 1]);
-	// printf("2[%s]\n", tmp);
-	// free(stash);
-	return (&stash[i + 1]);
+	if (i == ft_strlen(stash) || (ft_strlen(stash) == 1 && i == 0))
+	{
+		free(stash);
+		stash = NULL;
+		return (stash);
+	}
+	while (stash[i + j])
+		j++;
+	last_stash = (char *)calloc(sizeof(char), j + 1);
+	memcpy(last_stash, &stash[i + 1], j - 1);
+	last_stash[j] = '\0';
+	free(stash);
+	stash = NULL;
+	return (last_stash);
 }
-//	prend la reserve et retourne la premiere ligne avec le \n
+// garde la ligne a return
+
 char	*keep_line(char *stash)
 {
 	int		i;
@@ -73,52 +73,148 @@ char	*keep_line(char *stash)
 
 	i = 0;
 	j = 0;
-	while (stash[i] != '\n')
-		i++;
-	// line = (char *)malloc(sizeof(char) * (i + 2));
-	line = (char *)calloc(sizeof(char), i + 2);
+	if (stash == NULL)
+		return (stash);
+	else if (!ft_strchr(stash, '\n'))
+		return (ft_strdup(stash));
+	else
+		while (stash[i] != '\n')
+			i++;
+	i++;
+	line = (char *)calloc(sizeof(char), i + 1);
 	if (!line)
 		return (NULL);
-	while (i + 1 > j)
+	while (i > j)
 	{
 		line[j] = stash[j];
 		j++;
 	}
-	// printf("%d\n", j);
 	line[j] = '\0';
 	return (line);
 }
 
-int	check_stash(char *stash)
+// retourne tout les buffers
+char	*read_file(int fd, char *stash)
 {
-	int	i;
+	int		bytes;
+	char	*buffer;
 
-	i = 0;
-	while (stash[i])
+	if (!stash)
+		stash = calloc(1, 1);
+	buffer = calloc(sizeof(char), BUFFER_SIZE + 1);
+	if (!stash || !buffer)
+		return (NULL);
+	bytes = 1;
+	while (bytes > 0 || !ft_strchr(stash, '\n'))
 	{
-		if (stash[i] == '\n')
-			return (1);
-		i++;
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes < BUFFER_SIZE && bytes != 0)
+			buffer[bytes] = '\0';
+		else if (bytes == 0)
+		{
+			free(stash);
+			stash = NULL;
+			break ;
+		}
+		stash = free_stash(stash, buffer);
+		if (ft_strchr(stash, '\n') || bytes < BUFFER_SIZE)
+			break ;
 	}
-	return (0);
+	free(buffer);
+	return (stash);
 }
 
+// free l'ancienne stash et return la nouvelle qui rajoute le buffer
+char	*free_stash(char *stash, char *buffer)
+{
+	char	*new_stash;
+
+	new_stash = ft_strjoin(stash, buffer);
+	free(stash);
+	return (new_stash);
+}
+/*
 int	main(void)
 {
 	int		fd;
 	char	*buffer;
 
-	fd = open("text.txt", O_RDONLY);
+	fd = open("test1.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
-	for (int i = 0; i < 4; i++)
+	do
 	{
 		buffer = get_next_line(fd);
 		printf("%s", buffer);
 		free(buffer);
-	}
-	//printf("%s", buffer);
-	
+	} while (buffer != NULL);
 	close(fd);
 	return (0);
 }
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	int		length;
+	char	*ptr;
+
+	length = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	ptr = (char *)malloc(sizeof(char) * length + 1);
+	if (!ptr)
+		return (NULL);
+	while (s1[i])
+	{
+		ptr[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		ptr[i++] = s2[j++];
+	ptr[i] = '\0';
+	return (ptr);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if (s[i] == (char)c)
+		return ((char *)&s[i]);
+	return (NULL);
+}
+
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
+		i++;
+	}
+	return (dest);
+}*/
