@@ -177,7 +177,7 @@ int	check_conversion(char *str)
 	else
 		return (0);
 }
-/*
+
 int	main()
 {
 	int	p = 23;
@@ -190,4 +190,4 @@ int	main()
 	ft_printf("%%%p\n%x%x%s%c",k , 29, 26, "caca", 'p');
 	printf("\n");
 	return (0);
-}*/
+}
