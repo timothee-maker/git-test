@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:59:49 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/18 18:59:51 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/19 11:46:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1
 # endif
 
 size_t	ft_strlen(char *str);

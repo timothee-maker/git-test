@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:48 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/18 18:49:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/19 14:00:29 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,14 @@ char	*read_file(int fd, char *stash)
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < BUFFER_SIZE && bytes != 0)
 			buffer[bytes] = '\0';
-		else if (bytes == 0)
+		else if (bytes == 0 && (!ft_strlen(stash)) > 0)
 		{
 			free(stash);
 			stash = NULL;
 			break ;
 		}
-		stash = free_stash(stash, buffer);
+		if (bytes != 0)
+			stash = free_stash(stash, buffer);
 		if (ft_strchr(stash, '\n') || bytes < BUFFER_SIZE)
 			break ;
 	}
@@ -133,11 +134,12 @@ char	*free_stash(char *stash, char *buffer)
 	free(stash);
 	return (new_stash);
 }
-/*
+
 int	main(void)
 {
 	int		fd;
 	char	*buffer;
+	int	i = 0;
 
 	fd = open("test1.txt", O_RDONLY);
 	if (fd == -1)
@@ -147,11 +149,12 @@ int	main(void)
 		buffer = get_next_line(fd);
 		printf("%s", buffer);
 		free(buffer);
-	} while (buffer != NULL);
+		i++;
+	} while (i < 4);
 	close(fd);
 	return (0);
 }
-
+/*
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
@@ -217,4 +220,23 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		i++;
 	}
 	return (dest);
-}*/
+}
+
+char	*ft_strdup(char *s1)
+{
+	int		i;
+	char	*result;
+
+	i = 0;
+	result = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!result)
+		return (NULL);
+	while (s1[i])
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}
+*/
