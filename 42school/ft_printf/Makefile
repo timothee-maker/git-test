@@ -10,13 +10,15 @@ INCLUDE =-I include
 NAME = libftprintf.a
 OBJ = $(SRC:.c=.o)
 
-all : $(LIB) 
+all : $(NAME) 
 
 %.o : %.c
 	$(CC) $(INCLUDE) -c $< -o $@
 
 $(NAME) : $(OBJ)
 	ar -rcs $@ $^
+
+re : fclean all
 
 clean :
 	rm -f $(OBJ)

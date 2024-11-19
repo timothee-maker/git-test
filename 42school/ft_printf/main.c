@@ -11,11 +11,10 @@ int	main()
 	int	*ptr = &n;
 
 	
-	//printf("%p\n%x%x%s%c\n", k, 29, 26, "caca", 'p');
-	//ft_printf("%p\n%x%x%s%c",k , 29, 26, "caca", 'p');
-	printf("\n");
-	ft_printf("%p\t%p\n", ptr, k);
-	printf("%p\t%p", ptr, k);
+	// ft_printf("My printf : ptr : %p\t hexa :%x\t hexa : %x\t string : %s\t char : %c\n", k, 29, 26, "caca", 'p');
+	// printf("Og printf : ptr : %p\t hexa :%x\t hexa : %x\t string : %s\t char : %c\n", k, 29, 26, "caca", 'p');
+	ft_printf("My printf ptr : %%%p \t ptr : %p\n", ptr, k);
+	printf("Og printf ptr : %%%p \t ptr : %p\n", ptr, k);
 
 	return (0);
 }
