@@ -1,27 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putunsnb_fd.c                                   :+:      :+:    :+:   */
+/*   ft_uns_tim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 17:10:55 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/19 17:10:56 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/20 19:09:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putunsnb_fd(unsigned int nb, int fd)
+void	ft_putunsnbr(unsigned int nb, int fd)
 {
 	if (nb > 9)
-		ft_putunsnb_fd(nb / 10, fd);
+		ft_putunsnbr(nb / 10, fd);
 	nb = (nb % 10 + '0');
 	write(fd, &nb, 1);
 }
-/*
-int	main()
+
+int	ft_len_unsnbr(unsigned int nb)
 {
-	ft_putunsnb_fd(-20, 1);
-	return (0);
-}*/
+	int	i;
+
+	i = 0;
+	while ((nb / 10) > 0)
+	{
+		nb = nb / 10;
+		i++;
+	}
+	return (i + 1);
+}
+
+int	ft_uns_tim(unsigned int nb)
+{
+	if (nb < 0)
+		nb *= -1;
+	ft_putunsnbr(nb, 1);
+	return (ft_len_unsnbr(nb));
+}
+
+// int	main(void)
+// {
+// 	int	nb = -2147483648;
+// 	printf("\t%d", ft_uns_tim(nb));
+// 	printf("\n");
+// 	printf("\t%d", printf("%u", nb));
+// 	return (0);
+// }

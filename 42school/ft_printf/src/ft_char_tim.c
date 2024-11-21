@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_char_tim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:10:17 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/19 17:10:18 by tnolent          ###   ########.fr       */
+/*   Created: 2024/11/19 17:09:13 by tnolent           #+#    #+#             */
+/*   Updated: 2024/11/20 11:17:48 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr_fd(char *str, int fd)
+int	ft_char_tim(char c, int fd)
 {
-	int	i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-		i++;
-	write (fd, str, i);
+	write(fd, &c, 1);
+	return (1);
 }
 /*
 int	main()
 {
-	char *str = "Je suis la";
-	ft_putstr_fd(str, STDIN_FILEN0);
-	return (0);
+	FILE* fichier = NULL;
+
+	fichier = fopen("test.txt", "w");
+
+	if (fichier != NULL)
+	{
+		ft_putchar_fd('A', 4); // Écriture du caractère A
+		fclose(fichier);
+	}
+
+	return 0;
 }*/

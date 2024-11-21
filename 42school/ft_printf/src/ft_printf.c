@@ -6,64 +6,69 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:49:03 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/19 16:57:34 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/21 18:07:36 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	print_args(char c, va_list args);
+int	print_args(char c, va_list args);
 
 int	ft_printf(char const *str, ...)
 {
-	int		ptr;
-	int		i;
-	va_list	args;
+	int			i;
+	int			nb_args;
+	va_list		args;
 
 	i = 0;
+	nb_args = 0;
 	va_start(args, str);
+	if (!str)
+	{
+		nb_args += ft_str_tim("(nil)", 1);
+		return (-1);
+	}
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			print_args(str[i + 1], args);
+			nb_args += print_args(str[i + 1], args);
 			i += 2;
 		}
 		else if (ft_isascii(str[i]))
 		{
-			write(1, &str[i], 1);
-			i++;
+			write(1, &str[i++], 1);
+			nb_args ++;
 		}
-		else
-			i++;
 	}
 	va_end(args);
-	return (0);
+	return (nb_args);
 }
 
-void	print_args(char c, va_list args)
+int	print_args(char c, va_list args)
 {
+	int	nb_args;
+
+	nb_args = 0;
 	if (c == 's')
-		ft_putstr_fd(va_arg(args, char *), 1);
+		nb_args += ft_str_tim(va_arg(args, char *), 1);
 	else if (c == 'c')
-		ft_putchar_fd(va_arg(args, int), 1);
+		nb_args += ft_char_tim(va_arg(args, int), 1);
 	else if (c == 'd')
-		ft_putnbr_fd(va_arg(args, int), 1);
+		nb_args += ft_nbr_tim(va_arg(args, int));
 	else if (c == 'x')
-		ft_putnbrbase_fd(va_arg(args, uintptr_t), "0123456789abcdef", 1);
+		nb_args += ft_smallbase_tim(va_arg(args, int));
 	else if (c == 'X')
-		ft_putnbrbase_fd(va_arg(args, uintptr_t), "0123456789ABCDEF", 1);
+		nb_args += ft_bigbase_tim(va_arg(args, int));
 	else if (c == 'u')
-		ft_putunsnb_fd(va_arg(args, int), 1);
+		nb_args += ft_uns_tim(va_arg(args, int));
+	else if (c == 'i')
+		nb_args += ft_nbr_tim(va_arg(args, int));
 	else if (c == 'p')
-	{
-		write(1, "Ox", 2);
-		ft_putnbrbase_fd(va_arg(args, uintptr_t), "0123456789abcdef", 1);
-	}
+		nb_args += ft_ptr_tim(va_arg(args, uintptr_t));
 	else if (c == '%')
-		write(1, "%", 1);
-	else
-		return ;
+		nb_args += write(1, "%", 1);
+	return (nb_args);
 }
 
 // int	main(void)
@@ -74,8 +79,8 @@ void	print_args(char c, va_list args)
 // 	char	*h[] = {"okay le sang", "shesh"};
 // 	char	*k = "Je suis la";
 
-// 	printf("%%%p\n%x%x%s%c\n", k, 29, 26, "caca", 'p');
-// 	ft_printf("%%%p\n%x%x%s%c",k , 29, 26, "caca", 'p');
+// 	printf("OG printf : %%%p\n%x%x%s%c\n", k, 29, 26, "caca", 'p');
+// 	ft_printf("My printf : %%%p\n%x%x%s%c",k , 29, 26, "caca", 'p');
 // 	printf("\n");
 // 	return (0);
 // }

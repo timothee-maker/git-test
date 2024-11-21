@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_smallbase_tim.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 17:09:13 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/19 17:09:14 by tnolent          ###   ########.fr       */
+/*   Created: 2024/11/20 19:16:47 by tnolent           #+#    #+#             */
+/*   Updated: 2024/11/21 17:09:14 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+int	ft_smallbase_tim(unsigned int nb)
 {
-	write(fd, &c, 1);
-}
-/*
-int	main()
-{
-	FILE* fichier = NULL;
+	int	length_base;
 
-	fichier = fopen("test.txt", "w");
-
-	if (fichier != NULL)
+	length_base = 0;
+	if (nb == 0)
+		length_base += write(1, "0", 1);
+	else
 	{
-		ft_putchar_fd('A', 4); // Écriture du caractère A
-		fclose(fichier);
+		ft_putnbrbase(nb, "0123456789abcdef", 1);
+		length_base += len_hexa(nb);
 	}
+	return (length_base);
+}
 
-	return 0;
-}*/
+// int	main()
+// {
+// 	printf("%d\t", ft_base_tim(4233333, "0123456789abcdef", 1));
+// 	printf("\n");
+// 	printf("%d\t", printf("%x", 4233333));
+// 	printf("\n");
+// 	return (0);
+// }

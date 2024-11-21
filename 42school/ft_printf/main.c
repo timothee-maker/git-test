@@ -11,10 +11,17 @@ int	main()
 	int	*ptr = &n;
 
 	
-	// ft_printf("My printf : ptr : %p\t hexa :%x\t hexa : %x\t string : %s\t char : %c\n", k, 29, 26, "caca", 'p');
-	// printf("Og printf : ptr : %p\t hexa :%x\t hexa : %x\t string : %s\t char : %c\n", k, 29, 26, "caca", 'p');
-	ft_printf("My printf ptr : %%%p \t ptr : %p\n", ptr, k);
-	printf("Og printf ptr : %%%p \t ptr : %p\n", ptr, k);
-
+	// printf("%d\n", ft_printf("My printf : ptr : %p\t hexa :%x\t hexa : %x\t string : %s\t char : %c\n", k, 29, 26, k, 'c'));
+	// printf("%d\n", printf("Og printf : ptr : %p\t hexa :%x\t hexa : %x\t string : %s\t char : %c\n", k, 29, 26, k, 'c'));
+	// printf("%d\n" ,ft_printf("My printf ptr : %p ptr : %p\n", 0, 0));
+	// printf("%d\n" ,printf("OG printf ptr : %p ptr : %p\n", 0, 0));
+	// printf("%d\n" , ft_printf("My printf ptr : %X", -1));
+	// printf("%d\n" , printf("OG printf ptr : %X", -1));
+	// printf("\t%d\n", printf("%d", -2147483647));
+	// printf("\t%d\n", ft_printf("%d", -2147483647));
+	// printf("%d", printf("NULL %s NULL", NULL));
+	// printf("%d", ft_printf("NULL %s NULL", NULL));
+	ft_printf("%d",ft_printf(0));
+	printf("%d",printf(0));
 	return (0);
 }

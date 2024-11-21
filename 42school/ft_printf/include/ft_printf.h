@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:45:17 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/19 17:13:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/21 17:10:06 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,23 @@
 # include <unistd.h>
 
 size_t	ft_strlen(const char *s);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putendl_fd(char const *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putnbrbase_fd(uintptr_t nb, char *base, int fd);
-void	ft_putunsnb_fd(unsigned int nb, int fd);
-int		ft_isascii(int c);
 int		ft_printf(char const *str, ...);
-void	print_args(char c, va_list args);
+void	ft_putusnnbr(unsigned int nb, int fd);
+void	ft_putnbr(int nb, int fd);
+void	ft_putnbrbase(uintptr_t nb, char *base, int fd);
+void	ft_xputnbrbase(unsigned int nb, char *base, int fd);
+int		ft_bigbase_tim(unsigned int nb);
+int		ft_smallbase_tim(unsigned int nb);
+int		ft_len_unsnbr(unsigned int nb);
+int		ft_uns_tim(unsigned int nb);
+int		print_args(char c, va_list args);
+int		ft_char_tim(char c, int fd);
+int		ft_str_tim(char *s, int fd);
+int		ft_nbr_tim(int n);
+int		ft_ptr_tim(uintptr_t nb);
+int		len_hexa(uintptr_t nb);
+int		ft_len_nbr(int nb);
+int		ft_nbr_tim(int nb);
+int		ft_isascii(int c);
 
 #endif

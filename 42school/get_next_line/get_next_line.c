@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:48 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/19 14:16:28 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/21 18:11:28 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	main(void)
 		printf("%s", buffer);
 		free(buffer);
 		i++;
-	} while (i < 7);
+	} while (i <= 0);
 	close(fd);
 	return (0);
 }
