@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:41:48 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/21 18:11:28 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/29 12:13:24 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ char	*free_stash(char *stash, char *buffer);
 char	*ft_strdup(char *s1);
 char	*keep_line(char *stash);
 char	*clean_stash(char *stash);
-size_t	ft_strlen(char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
-//	retourne la ligne avec le \n
 
 char	*get_next_line(int fd)
 {
@@ -29,26 +25,29 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	if (!stash)
+		stash = ft_calloc(1, 1);
 	stash = read_file(fd, stash);
 	line = keep_line(stash);
 	stash = clean_stash(stash);
 	return (line);
 }
-// nettoie la stash
 
 char	*clean_stash(char *stash)
 {
 	size_t	i;
 	int		j;
+	size_t	len;
 	char	*last_stash;
 
 	i = 0;
 	j = 0;
+	len = ft_strlen(stash);
 	if (stash == NULL)
 		return (stash);
 	while (stash[i] && stash[i] != '\n')
 		i++;
-	if (i == ft_strlen(stash) || (ft_strlen(stash) == 1 && i == 0))
+	if (i == len || (len == 1 && i == 0) || ((i + 1) == len))
 	{
 		free(stash);
 		stash = NULL;
@@ -56,14 +55,12 @@ char	*clean_stash(char *stash)
 	}
 	while (stash[i + j])
 		j++;
-	last_stash = (char *)calloc(sizeof(char), j + 1);
-	memcpy(last_stash, &stash[i + 1], j - 1);
+	last_stash = (char *)ft_calloc(sizeof(char), j + 1);
+	ft_memcpy(last_stash, &stash[i + 1], j - 1);
 	last_stash[j] = '\0';
 	free(stash);
-	stash = NULL;
 	return (last_stash);
 }
-// garde la ligne a return
 
 char	*keep_line(char *stash)
 {
@@ -81,7 +78,7 @@ char	*keep_line(char *stash)
 		while (stash[i] != '\n')
 			i++;
 	i++;
-	line = (char *)calloc(sizeof(char), i + 1);
+	line = (char *)ft_calloc(sizeof(char), i + 1);
 	if (!line)
 		return (NULL);
 	while (i > j)
@@ -93,15 +90,12 @@ char	*keep_line(char *stash)
 	return (line);
 }
 
-// retourne tout les buffers
 char	*read_file(int fd, char *stash)
 {
 	int		bytes;
 	char	*buffer;
 
-	if (!stash)
-		stash = calloc(1, 1);
-	buffer = calloc(sizeof(char), BUFFER_SIZE + 1);
+	buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!stash || !buffer)
 		return (NULL);
 	bytes = 1;
@@ -117,24 +111,32 @@ char	*read_file(int fd, char *stash)
 			break ;
 		}
 		if (bytes != 0)
-			stash = free_stash(stash, buffer);
+			stash = ft_strjoin(stash, buffer);
 		if (ft_strchr(stash, '\n') || bytes < BUFFER_SIZE)
 			break ;
 	}
-	free(buffer);
-	return (stash);
+	return (free(buffer), stash);
 }
 
-// free l'ancienne stash et return la nouvelle qui rajoute le buffer
-char	*free_stash(char *stash, char *buffer)
+char	*ft_strdup(char *s1)
 {
-	char	*new_stash;
+	int		i;
+	char	*result;
 
-	new_stash = ft_strjoin(stash, buffer);
-	free(stash);
-	return (new_stash);
+	i = 0;
+	result = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!result)
+		return (NULL);
+	while (s1[i])
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
 }
 
+/*
 int	main(void)
 {
 	int		fd;
@@ -150,11 +152,14 @@ int	main(void)
 		printf("%s", buffer);
 		free(buffer);
 		i++;
-	} while (i <= 0);
+	} while (i <= 33);
+	// buffer = get_next_line(fd);
+	// printf("%s", buffer);
+	// free(buffer);
 	close(fd);
 	return (0);
 }
-/*
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
@@ -178,6 +183,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		ptr[i++] = s2[j++];
 	ptr[i] = '\0';
+	free((char *)s1);
 	return (ptr);
 }
 
@@ -209,34 +215,34 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = (void *)malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	while (i < (count * size))
+	{
+		*(char *)(ptr + i) = 0;
+		i++;
+	}
+	return (ptr);
+}
+
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
 
 	i = 0;
+	if (!dest && !src)
+		return (NULL);
 	while (i < n)
 	{
 		*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
 		i++;
 	}
 	return (dest);
-}
-
-char	*ft_strdup(char *s1)
-{
-	int		i;
-	char	*result;
-
-	i = 0;
-	result = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (!result)
-		return (NULL);
-	while (s1[i])
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	result[i] = '\0';
-	return (result);
-}
-*/
+}*/

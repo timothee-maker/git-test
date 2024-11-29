@@ -6,13 +6,14 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 16:49:03 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/21 18:07:36 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/23 17:11:13 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 int	print_args(char c, va_list args);
+int	check_conv(char conv);
 
 int	ft_printf(char const *str, ...)
 {
@@ -24,21 +25,18 @@ int	ft_printf(char const *str, ...)
 	nb_args = 0;
 	va_start(args, str);
 	if (!str)
-	{
-		nb_args += ft_str_tim("(nil)", 1);
 		return (-1);
-	}
 	while (str[i])
 	{
-		if (str[i] == '%')
+		if (str[i] == '%' && check_conv(str[i + 1]))
 		{
 			nb_args += print_args(str[i + 1], args);
 			i += 2;
 		}
-		else if (ft_isascii(str[i]))
+		else
 		{
 			write(1, &str[i++], 1);
-			nb_args ++;
+			nb_args++;
 		}
 	}
 	va_end(args);
@@ -69,6 +67,15 @@ int	print_args(char c, va_list args)
 	else if (c == '%')
 		nb_args += write(1, "%", 1);
 	return (nb_args);
+}
+
+int	check_conv(char conv)
+{
+	if (conv == 'c' || conv == 's' || conv == 'x' || conv == 'X' || conv == 'u')
+		return (1);
+	else if (conv == 'i' || conv == 'p' || conv == '%' || conv == 'd')
+		return (1);
+	return (0);
 }
 
 // int	main(void)

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 18:42:07 by tnolent           #+#    #+#             */
-/*   Updated: 2024/11/18 19:00:09 by tnolent          ###   ########.fr       */
+/*   Updated: 2024/11/28 10:30:29 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,8 @@
 size_t	ft_strlen(char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
-char	*clean_stash(char *stash);
-char	*keep_line(char *stash);
-char	*read_file(int fd, char *stash);
-char	*free_stash(char *stash, char *buffer);
-
-char	*ft_strdup(char *s1)
-{
-	int		i;
-	char	*result;
-
-	i = 0;
-	result = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (!result)
-		return (NULL);
-	while (s1[i])
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	result[i] = '\0';
-	return (result);
-}
+char	*ft_strdup(char *s1);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -61,6 +41,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s2[j])
 		ptr[i++] = s2[j++];
 	ptr[i] = '\0';
+	free((char *)s1);
 	return (ptr);
 }
 
@@ -92,11 +73,30 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = (void *)malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	while (i < (count * size))
+	{
+		*(char *)(ptr + i) = 0;
+		i++;
+	}
+	return (ptr);
+}
+
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
 
 	i = 0;
+	if (!dest && !src)
+		return (NULL);
 	while (i < n)
 	{
 		*(unsigned char *)(dest + i) = *(unsigned char *)(src + i);
