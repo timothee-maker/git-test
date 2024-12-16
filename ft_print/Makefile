@@ -6,13 +6,12 @@
 #    By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/23 09:34:35 by tnolent           #+#    #+#              #
-#    Updated: 2024/11/26 14:40:04 by tnolent          ###   ########.fr        #
+#    Updated: 2024/12/01 16:12:07 by tnolent          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 FLAGS = -Wall -Wextra -Werror
-LIB = libftprintf.a
 FOLDER = src
 SRC = $(addprefix $(FOLDER)/, ft_nbr_tim.c ft_str_tim.c ft_strlen.c \
       ft_printf.c ft_smallbase_tim.c ft_uns_tim.c ft_char_tim.c ft_ptr_tim.c \
@@ -35,6 +34,6 @@ clean :
 	rm -f $(OBJ)
 
 fclean : clean
-	rm -f $(LIB)
+	rm -f $(NAME)
 
 .PHONY: all re clean fclean
